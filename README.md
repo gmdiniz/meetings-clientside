@@ -1,10 +1,6 @@
 # Título do projeto
 
-Sistema de videoconferência em tempo real com ferramentas de interação colaboratividade e mensageria. Desenvolvido como tema de trabalho de conclusão de curso
-
-### 📋 Pré-requisitos
-
-O projeto conta com a versão node maior ou igual a 16.14.0 e a versão npm maior ou igual a 8.3.1, como especificado no package.json
+Este repositorio representa um sistema frontend em VUE que compõe uma aplicação de videoconferência em tempo real com ferramentas de interação colaboratividade e mensageria. Desenvolvido como tema de trabalho de conclusão de curso
 
 ### 🔧 Instalação
 
@@ -17,18 +13,10 @@ npm install
 A ferramenta conta com dois comandos basicos para rodar localmente
 
 ```
-npm run client
+npm run start
 ```
 
 Para subir o fronend em VUE
-
-e
-
-```
-npm run server
-```
-
-Para subir o servidor em node.js no modo debug
 
 ## ⚙️ Executando os testes
 
@@ -37,9 +25,8 @@ A versão atual do projeto ainda nao conta com testes de unidade
 ## 🛠️ Construído com
 
 - [Vue.js]
-- [Express]
+- [Javascript]
 - [Socket.io]
-- [Node.js]
 - [Webrtc]
 
 ## 🖇️ Colaborando
