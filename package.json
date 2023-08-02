@@ -5,7 +5,7 @@
   "description": "Sistema de videoconferência em tempo real com ferramentas de interação colaboratividade e mensageria. Desenvolvido como tema de trabalho de conclusão de curso",
   "author": "Gabriel Diniz",
   "scripts": {
-    "start": "vue-cli-service serve",
+    "build": "vue-cli-service serve",
     "lint": "vue-cli-service lint"
   },
   "main": ".eslintrc.js",
