@@ -145,7 +145,7 @@ export default {
             this.randomRoomId = randomRoomId
 
             const serverAddress = process.env.PROD_ENV ? REMOTE_SERVER : LOCAL_SERVER
-            console.log('The env used is', serverAddress)
+            console.log('Ens', process.env)
             this.socketServer = io(serverAddress)
 
             this.socketServer.on('connect', () => {
