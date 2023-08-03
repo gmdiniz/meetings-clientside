@@ -76,6 +76,9 @@ const ICE_SERVERS = [
     { urls: 'stun:stun.l.google.com:19302' }
 ]
 
+const LOCAL_SERVER = 'http://localhost:3000'
+const REMOTE_SERVER = '18.231.159.40:3000'
+
 export default {
     name: 'MeetingRoom',
     data: function () {
@@ -141,7 +144,8 @@ export default {
             const randomRoomId = this.$route.params.roomId.replaceAll('-', '')
             this.randomRoomId = randomRoomId
 
-            this.socketServer = io('http://localhost:3000')
+            const serverAddress = process.env.PROD_ENV ? REMOTE_SERVER : LOCAL_SERVER
+            this.socketServer = io(serverAddress)
 
             this.socketServer.on('connect', () => {
                 this.socketServer.emit('join', { channel: randomRoomId, userdata: {} })
