@@ -144,8 +144,7 @@ export default {
             const randomRoomId = this.$route.params.roomId.replaceAll('-', '')
             this.randomRoomId = randomRoomId
 
-            const serverAddress = process.env.PROD_ENV ? REMOTE_SERVER : LOCAL_SERVER
-            console.log('Ens', process.env)
+            const serverAddress = process.env.VUE_APP_VERCEL_ENV === 'production' ? REMOTE_SERVER : LOCAL_SERVER
             this.socketServer = io(serverAddress)
 
             this.socketServer.on('connect', () => {
