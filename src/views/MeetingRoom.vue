@@ -146,12 +146,15 @@ export default {
 
             const serverAddress = process.env.VUE_APP_VERCEL_ENV === 'production' ? REMOTE_SERVER : LOCAL_SERVER
             this.socketServer = io(serverAddress)
-            console.log(this.socketServer)
-            console.log(serverAddress)
+
+            console.log('WS instance', this.socketServer)
+            console.log('Env', process.env.VUE_APP_VERCEL_ENV)
+            console.log('Server adress', serverAddress)
 
             this.socketServer.on('connect', () => {
                 this.socketServer.emit('join', { channel: randomRoomId, userdata: {} })
             })
+
             this.socketServer.on('addPeer', this.addPeerEvent)
             this.socketServer.on('sessionDescription', this.sessionDescriptionEvent)
             this.socketServer.on('iceCandidate', this.iceCandidateEvent)
