@@ -77,7 +77,7 @@ const ICE_SERVERS = [
 ]
 
 const LOCAL_SERVER = 'http://localhost:3000'
-const REMOTE_SERVER = '18.231.165.143:3000'
+const REMOTE_SERVER = '54.207.166.43:3000'
 
 export default {
     name: 'MeetingRoom',
