@@ -1,4 +1,4 @@
-# Título do projeto
+# Frontend VUE 
 
 Este repositorio representa um sistema frontend em VUE que compõe uma aplicação de videoconferência em tempo real com ferramentas de interação colaboratividade e mensageria. Desenvolvido como tema de trabalho de conclusão de curso
 
