@@ -76,8 +76,8 @@ const ICE_SERVERS = [
     { urls: 'stun:stun.l.google.com:19302' }
 ]
 
-const LOCAL_SERVER = 'wss://localhost:3000'
-const REMOTE_SERVER = 'wss://54.207.166.43:3000'
+const LOCAL_SERVER = 'ws://localhost:3000'
+const REMOTE_SERVER = 'ws://54.207.166.43:3000'
 
 export default {
     name: 'MeetingRoom',
