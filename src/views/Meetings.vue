@@ -7,11 +7,13 @@
                     <br>
                     <div>
                         <div class="d-flex camera-preview-actions">
-                            <li v-on:click="muteVideo()" class="icon">
-                                <mdicon name="camera-off"/>
+                            <li v-on:click="muteVideo()" class="icon" :class="{ 'icon-disabled': !isVideo }">
+                                <mdicon v-if="isVideo" name="camera"/>
+                                <mdicon v-else name="camera-off"/>
                             </li>
-                            <li v-on:click="muteAudio()" class="icon">
-                                <mdicon name="microphone-off"/>
+                            <li v-on:click="muteAudio()" class="icon" :class="{ 'icon-disabled': !isAudio }">
+                                <mdicon v-if="isAudio" name="microphone"/>
+                                <mdicon v-else name="microphone-off"/>
                             </li>
                         </div>
                     </div>
@@ -49,15 +51,14 @@
 import { mapState } from 'vuex'
 import { v4 as uuidv4 } from 'uuid'
 
-let isAudio = true
-let isVideo = true
-
 export default {
     name: 'Meetings',
     data: function () {
         return {
             meetingsList: [],
             localStream: null,
+            isAudio: true,
+            isVideo: true,
             username: '',
             peerConn: null,
             routRoomId: '',
@@ -86,16 +87,17 @@ export default {
                     this.localStream = stream
                     document.getElementById('local-media').srcObject = this.localStream
                 }, (error) => {
+                    alert('Erro ao acessar dispositivo de midia. Verifique a conexão ou permissões do navegador e tente novamente')
                     console.log(error)
                 })
             },
             muteAudio () {
-                isAudio = !isAudio
-                this.localStream.getAudioTracks()[0].enabled = isAudio
+                this.isAudio = !this.isAudio
+                this.localStream.getAudioTracks()[0].enabled = this.isAudio
             },
             muteVideo () {
-                isVideo = !isVideo
-                this.localStream.getVideoTracks()[0].enabled = isVideo
+                this.isVideo = !this.isVideo
+                this.localStream.getVideoTracks()[0].enabled = this.isVideo
             }
         }
     },
@@ -168,6 +170,10 @@ export default {
         flex-direction: column;
         box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
         transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .icon-disabled {
+        background: rgb(0 0 0 / 12%);
     }
 
     .icon:hover {
