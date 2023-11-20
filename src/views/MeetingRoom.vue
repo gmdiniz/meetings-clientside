@@ -35,7 +35,7 @@
                     </div>
                 </v-card>
             </div>
-            <v-card class="remote-video-area" v-if="shouldShowRemoteArea()">
+            <div class="remote-video-area" v-if="shouldShowRemoteArea()">
                 <div
                     v-for="stream in peerMediaElements"
                     :key="stream.id"
@@ -49,13 +49,15 @@
                     >
                     </video>
                 </div>
-            </v-card>
+            </div>
             <div class="d-flex meeting-actions">
-                <li v-on:click="muteVideo()" class="icon">
-                    <mdicon name="camera-off"/>
+                <li v-on:click="muteVideo()" class="icon" :class="{ 'icon-disabled': !isVideo }">
+                    <mdicon v-if="isVideo" name="camera"/>
+                    <mdicon v-else name="camera-off"/>
                 </li>
-                <li v-on:click="muteAudio()" class="icon">
-                    <mdicon name="microphone-off"/>
+                <li v-on:click="muteAudio()" class="icon" :class="{ 'icon-disabled': !isAudio }">
+                    <mdicon v-if="isAudio" name="microphone"/>
+                    <mdicon v-else name="microphone-off"/>
                 </li>
                 <li v-on:click="leaveRoom()" class="icon">
                     <mdicon name="exit-to-app"/>
@@ -112,6 +114,7 @@ export default {
         },
         leaveRoom () {
             this.$router.push({ name: 'meetings' })
+            this.partChatChannel(this.randomRoomId)
         },
         sendMessage () {
             this.socketServer.emit('incomingMessage', {
@@ -288,6 +291,11 @@ export default {
     .local-video{
         width: 350px;
         margin-bottom: auto;
+        border-radius: 20px;
+    }
+
+    .video-call-div {
+        height: 100%;
     }
 
     .chat-input-field {
@@ -295,7 +303,9 @@ export default {
     }
 
     .remote-video {
-        width: 350px;
+        width: 500px;
+        padding: 8px;
+        border-radius: 20px;
     }
 
     .local-video-area {
@@ -351,11 +361,11 @@ export default {
     }
 
     .remote-video-area {
-        display: flex;
         min-width: 300px;
-        margin: 20px;
+        background: whitesmoke;
         padding: 20px 20px 10px 20px;
         height: 100%;
+        width: 100%;
     }
 
     .meeting-actions {
@@ -381,6 +391,10 @@ export default {
         flex-direction: column;
         box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
         transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .icon-disabled {
+        background: rgb(0 0 0 / 12%);
     }
 
     .icon:hover {
