@@ -130,7 +130,20 @@ export default {
                 video: true,
                 audio: true
             }
-            navigator.getUserMedia(params, this.userStreamHandler, console.log)
+            // navigator.getUserMedia(params, this.userStreamHandler, console.log)
+            navigator.getUserMedia = (
+                navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia ||
+                navigator.msGetUserMedia
+            )
+
+            debugger
+            if (typeof navigator.mediaDevices.getUserMedia === 'undefined') {
+                navigator.getUserMedia(params, this.userStreamHandler, console.log)
+            } else {
+                navigator.mediaDevices.getUserMedia(params).then(this.userStreamHandler).catch(console.log)
+            }
         },
         showUserMedia (stream) {
             this.$refs['local-video'].srcObject = stream

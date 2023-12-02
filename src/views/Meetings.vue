@@ -74,7 +74,7 @@ export default {
                 this.$router.push({ name: 'room/', params: { roomId: this.routRoomId } })
             },
             startMedia () {
-                navigator.getUserMedia({
+                const params = {
                     video: {
                         frameRate: 24,
                         width: {
@@ -83,13 +83,19 @@ export default {
                         aspectRatio: 1.33333
                     },
                     audio: true
-                }, (stream) => {
-                    this.localStream = stream
-                    document.getElementById('local-media').srcObject = this.localStream
-                }, (error) => {
-                    alert('Erro ao acessar dispositivo de midia. Verifique a conexão ou permissões do navegador e tente novamente')
-                    console.log(error)
-                })
+                }
+                navigator.getUserMedia = (
+                    navigator.getUserMedia ||
+                    navigator.webkitGetUserMedia ||
+                    navigator.mozGetUserMedia ||
+                    navigator.msGetUserMedia
+                )
+
+                if (typeof navigator.mediaDevices.getUserMedia === 'undefined') {
+                    navigator.getUserMedia(params, this.userStreamHandler, console.log)
+                } else {
+                    navigator.mediaDevices.getUserMedia(params).then(this.userStreamHandler).catch(console.log)
+                }
             },
             muteAudio () {
                 this.isAudio = !this.isAudio
@@ -99,6 +105,12 @@ export default {
                 this.isVideo = !this.isVideo
                 this.localStream.getVideoTracks()[0].enabled = this.isVideo
             }
+        }
+    },
+    methods: {
+        userStreamHandler (stream) {
+            this.localStream = stream
+            document.getElementById('local-media').srcObject = this.localStream
         }
     },
     watch: {
