@@ -37,9 +37,10 @@
                         />
                     </div>
                     <div class="d-flex">
-                        <v-btn color="success" v-on:click='startCall()'> Criar uma chamada </v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn color="info" :disabled="!routRoomId" v-on:click='joinCall()'> Entrar em uma chamada </v-btn>
+                        <v-btn color="info" v-on:click='startCall()'>
+                            <span v-if="routRoomId">Entrar na</span>
+                            <span v-else>Criar uma</span> chamada
+                        </v-btn>
                     </div>
                 </div>
             </v-card>
@@ -63,15 +64,10 @@ export default {
             peerConn: null,
             routRoomId: '',
             startCall () {
-                const randomRoomId = uuidv4()
+                debugger
+                const randomRoomId = this.routRoomId ? this.routRoomId : uuidv4()
+
                 this.$router.push({ name: 'room/', params: { roomId: randomRoomId } })
-            },
-            joinCall () {
-                if (!this.routRoomId) {
-                    alert('Insira um ID válido')
-                    return
-                }
-                this.$router.push({ name: 'room/', params: { roomId: this.routRoomId } })
             },
             startMedia () {
                 const params = {
